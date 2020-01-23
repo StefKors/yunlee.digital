@@ -79,7 +79,7 @@
 import { dragscroll } from 'vue-dragscroll'
 import moment from 'moment'
 // Text balancer
-
+// testing
 export default {
   directives: {
     dragscroll
@@ -97,13 +97,15 @@ export default {
     try {
       // Query to get API object
       // Query to get blog home content
+      console.log('data')
       const document = await $prismic.api.getSingle('homepage-test-')
+
       let home = document.data
 
       const projects = await $prismic.api.query(
-        $prismic.predicates.at('document.type', 'projects'),
-        { orderings: '[my.post.date desc]' }
+        $prismic.predicates.at('document.type', 'projects')
       )
+      console.log(projects);
 
       // Returns data to be used in template
       return {

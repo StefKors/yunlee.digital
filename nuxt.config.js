@@ -1,14 +1,7 @@
 import Mode from 'frontmatter-markdown-loader/mode'
-const routerBase =
-  process.env.DEPLOY_ENV === 'GH_PAGES'
-    ? {
-        router: {
-          base: '/Yun-2020'
-        }
-      }
-    : {
+const routerBase = {
       router: {
-        base: '/'
+        base: '/Yun-2020'
       }
     }
 
