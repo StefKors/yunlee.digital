@@ -66,19 +66,15 @@
             <prismic-rich-text :field="project.description" />
           </div>
 
-          <div
-            v-if="project.gallery"
-            class="media"
-            v-dragscroll
-            v-bind:style="{
-              transform: `translate3d(${(num) / 20}px, 0, 0)`
-            }"
-          >
+          <div v-if="project.gallery" class="media" v-dragscroll>
             <div v-for="(item, i) in project.gallery" :key="i">
               <img
                 v-if="item.image.url"
                 :src="`${item.image.url},w=600&h=600`"
                 :alt="item.image.alt"
+                v-bind:style="{
+                  transform: `translate3d(${num / 30}px, 0, 0)`
+                }"
               />
             </div>
           </div>
@@ -260,12 +256,14 @@ article {
         padding-bottom: 3rem;
         font-weight: normal;
 
+        position: relative;
+
         .description {
           max-width: 450px;
         }
 
         .media {
-          max-width: 100%;
+          max-width: 150%;
           position: relative;
           display: flex;
           flex-direction: row;
