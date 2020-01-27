@@ -12,6 +12,7 @@ export default {
    */
   head: {
     title: 'Yun Ingrid Eel',
+    titleTemplate: 'Yun Ingrid Eel',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
