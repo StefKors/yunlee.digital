@@ -1,24 +1,3 @@
-# Deploy
-
-- gh-pages + CNAME
+# Dev-Ops
 - [dependabot](https://github.com/settings/installations/1051370) and [dependabot settings](https://app.dependabot.com/accounts/StefKors)
-- [WIP action](https://github.com/settings/installations/5730349)
-
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/8d034914-a7d8-4dc5-aa16-09c684d2ff4f/deploy-status)](https://app.netlify.com/sites/elegant-nightingale-ee9924/deploys)
