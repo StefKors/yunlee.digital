@@ -16,8 +16,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        hid: 'nuxt config',
-        name: 'Yun Ingrid Eel',
+        hid: 'description',
+        name: 'description',
         content:
           'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.'
       }

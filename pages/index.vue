@@ -90,6 +90,18 @@ import moment from 'moment'
 // Text balancer
 // testing
 export default {
+  head() {
+    return {
+      title: 'Yun Ingrid Eel, Homepage',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'About our company Nuxt.js '
+        }
+      ]
+    }
+  },
   directives: {
     dragscroll
   },
