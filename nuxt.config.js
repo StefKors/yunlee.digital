@@ -20,8 +20,7 @@ export default {
         name: 'description',
         content: 'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.'
       }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -76,6 +75,10 @@ export default {
         options: {
           mode: [Mode.VUE_COMPONENT]
         }
+      },
+      {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
       }),
         (config.resolve.alias['vue'] = 'vue/dist/vue.common')
     }

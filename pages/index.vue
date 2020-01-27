@@ -164,8 +164,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Overpass:400,400i,700,700i,900,900i&display=swap');
-// change to GT america
 $bg: #151515;
 $pink: #f29a9d;
 $blue: #3d87ca;
