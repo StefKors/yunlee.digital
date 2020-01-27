@@ -27,13 +27,13 @@
             }"
           >
             <a :href="'#key' + i">
-              {{ $prismic.asText(project.data.title) }}
+              {{ $prismic.asText(project.title) }}
               <span class="date">
-                <span v-if="project.data.start_date">
-                  {{ project.data.start_date | onlyYear }}
+                <span v-if="project.start_date">
+                  {{ project.start_date | onlyYear }}
                 </span>
-                <span v-if="project.data.end_date">
-                  {{ project.data.end_date | onlyYear }}
+                <span v-if="project.end_date">
+                  {{ project.end_date | onlyYear }}
                 </span>
               </span>
             </a>
@@ -42,7 +42,7 @@
       </div>
 
       <!-- ALL PROJECTS -->
-      <div class="project">
+      <div class="project" v-if="projects">
         <div
           v-for="(project, i) in projects"
           :key="project.id"
@@ -50,24 +50,37 @@
           class="item"
           :id="'key' + i"
         >
-          <div class="title">
-            {{ $prismic.asText(project.data.title) }}
+          <div v-if="project.title" class="title">
+            {{ $prismic.asText(project.title) }}
             <span class="date">
-              <span v-if="project.data.start_date">
-                {{ project.data.start_date | onlyYear }}
+              <span v-if="project.start_date">
+                {{ project.start_date | onlyYear }}
               </span>
-              <span v-if="project.data.end_date">
-               - {{ project.data.end_date | onlyYear }}
+              <span v-if="project.end_date">
+                - {{ project.end_date | onlyYear }}
               </span>
             </span>
           </div>
 
-          <div v-if="project.data.description" class="description">
-            <prismic-rich-text :field="project.data.description" />
+          <div v-if="project.description" class="description">
+            <prismic-rich-text :field="project.description" />
           </div>
 
-          <div  v-if="project.data.gallery.image" class="media" v-dragscroll>
-             <img v-for="(item, i) in project.data.gallery" :key="i" :src="`${item.image.url},w=600&h=600`" :alt="item.image.alt">
+          <div
+            v-if="project.gallery"
+            class="media"
+            v-dragscroll
+            v-bind:style="{
+              transform: `translate3d(${(num) / 20}px, 0, 0)`
+            }"
+          >
+            <div v-for="(item, i) in project.gallery" :key="i">
+              <img
+                v-if="item.image.url"
+                :src="`${item.image.url},w=600&h=600`"
+                :alt="item.image.alt"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -96,21 +109,29 @@ export default {
   async asyncData({ $prismic, error }) {
     try {
       // Query to get API object
-      // Query to get blog home content
-      console.log('data')
-      const document = await $prismic.api.getSingle('homepage-test-')
+      // Query to get blog home content with LinkedContent
+      const document = await $prismic.api.getSingle('homepage-test-', {
+        fetchLinks: [
+          'projects.title',
+          'projects.type',
+          'projects.description',
+          'projects.start_date',
+          'projects.end_date',
+          'projects.gallery'
+        ]
+      })
 
-      let home = document.data
+      const home = document.data
+      const projects = document.data.projects.map(project => {
+        return project.link_to_projects.data
+      })
 
-      const projects = await $prismic.api.query(
-        $prismic.predicates.at('document.type', 'projects')
-      )
-      console.log(projects);
+      console.log(projects[0].gallery)
 
       // Returns data to be used in template
       return {
         home,
-        projects: projects.results,
+        projects: projects,
         documentId: document.id
       }
     } catch (e) {
@@ -236,7 +257,7 @@ article {
 
       .item {
         text-transform: none;
-        padding-bottom: 160px;
+        padding-bottom: 3rem;
         font-weight: normal;
 
         .description {
@@ -251,6 +272,7 @@ article {
           transition: $transition;
           overflow-x: scroll;
           cursor: grab;
+          padding-top: 1rem;
 
           &::-webkit-scrollbar {
             display: none;
@@ -265,10 +287,10 @@ article {
               opacity: 1;
               transition: $transition;
             }
+          }
 
-            & + img {
-              margin-left: 10px;
-            }
+          div + div {
+            padding: 0 0.2rem;
           }
         }
       }
