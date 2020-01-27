@@ -1,16 +1,14 @@
 {
-  "name": "template",
+  "name": "Yun Ingrid Eel",
   "version": "1.0.0",
-  "description": "nuxt template",
+  "description": "Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.",
   "author": "Stef Kors",
   "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
-    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxt/markdown": "^0.0.21",
