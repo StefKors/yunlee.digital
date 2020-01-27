@@ -1,7 +1,7 @@
 import Mode from 'frontmatter-markdown-loader/mode'
 const routerBase = {
       router: {
-        base: '/ingrideel.com'
+        base: '/'
       }
     }
 
