@@ -62,6 +62,12 @@
             </span>
           </div>
 
+          <div class="type">
+            <p>
+            {{ $prismic.asText(project.type) }}
+            </p>
+          </div>
+
           <div v-if="project.description" class="description">
             <prismic-rich-text :field="project.description" />
           </div>
@@ -134,7 +140,7 @@ export default {
         return project.link_to_projects.data
       })
 
-      console.log(projects[0].gallery)
+      console.log(projects)
 
       // Returns data to be used in template
       return {
@@ -259,6 +265,10 @@ article {
           display: block;
           font-size: 2rem;
         }
+      }
+
+      .type {
+        color: $blue;
       }
 
       .item {
