@@ -22,7 +22,7 @@ export default {
         content:
           'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.'
       },
-        { hid: 'og:image', property: 'og:image', content: 'https://yunlee.digital/social.jpg'}
+        { hid: 'og:image', property: 'og:image', content: 'https://www.yunlee.digital/social.jpg'}
     ],
     link: [
       {
