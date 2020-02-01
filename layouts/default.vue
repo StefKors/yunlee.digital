@@ -23,13 +23,13 @@ export default {
 <style>
 @font-face {
   font-family: 'GT-America';
-  src: url('/GT-America-Standard-Regular.woff2');
+  src: url('/GTAmerica/GT-America-Standard-Regular.woff2');
   font-weight: normal;
 }
 
 @font-face {
   font-family: 'GT-America';
-  src: url('/GT-America-Standard-Bold.woff2');
+  src: url('/GTAmerica/GT-America-Standard-Bold.woff2');
   font-weight: bold;
 }
 
