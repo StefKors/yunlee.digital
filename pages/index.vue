@@ -140,8 +140,6 @@ export default {
         return project.link_to_projects.data
       })
 
-      console.log(projects)
-
       // Returns data to be used in template
       return {
         home,
