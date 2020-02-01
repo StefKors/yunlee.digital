@@ -64,7 +64,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/prismic',
     ['nuxt-social-meta', {
-      url: 'yunlee.digital',
+      url: 'https://www.yunlee.digital',
       title: 'Yun Ingrid Lee',
       description: 'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.',
       img: 'https://www.yunlee.digital/social.jpg',
