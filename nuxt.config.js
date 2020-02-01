@@ -67,7 +67,7 @@ export default {
       url: 'yunlee.digital',
       title: 'Yun Ingrid Lee',
       description: 'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.',
-      img: 'social.jpg',
+      img: 'http://yunlee.digital/social.jpg',
       locale: 'en_EN',
       themeColor: '#f29a9d'
     }]
