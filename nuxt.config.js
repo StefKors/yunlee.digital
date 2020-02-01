@@ -61,7 +61,15 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/prismic'
+    '@nuxtjs/prismic',
+    ['nuxt-social-meta', {
+      url: 'yunlee.digital',
+      title: 'Yun Ingrid Lee',
+      description: 'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.',
+      img: 'social.jpg',
+      locale: 'en_EN',
+      themeColor: '#f29a9d'
+    }]
   ],
   /*
    ** Axios module configuration
