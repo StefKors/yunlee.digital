@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article id="top">
     <!-- INTRODUCTION -->
     <div class="introduction">
       <prismic-rich-text :field="home.bio" />
@@ -86,6 +86,7 @@
         </div>
       </div>
     </div>
+    <a href="#top">Scroll to Top</a>
   </article>
 </template>
 
