@@ -78,9 +78,6 @@
                 v-if="item.image.url"
                 :src="`${item.image.url},w=600&h=600`"
                 :alt="item.image.alt"
-                v-bind:style="{
-                  transform: `translate3d(${num / 30}px, 0, 0)`
-                }"
               />
             </div>
           </div>
