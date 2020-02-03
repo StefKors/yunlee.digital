@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article id="top">
     <!-- INTRODUCTION -->
     <div class="introduction">
       <prismic-rich-text :field="home.bio" />
@@ -74,19 +74,19 @@
 
           <div v-if="project.gallery" class="media" v-dragscroll>
             <div v-for="(item, i) in project.gallery" :key="i">
-              <img
-                v-if="item.image.url"
-                :src="`${item.image.url},w=600&h=600`"
-                :alt="item.image.alt"
-                v-bind:style="{
-                  transform: `translate3d(${num / 30}px, 0, 0)`
-                }"
-              />
+              <a :href="item.image.url" target="_blank">
+                <img
+                  v-if="item.image.url"
+                  :src="`${item.image.url},w=600&h=600`"
+                  :alt="item.image.alt"
+                />
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <a href="#top">Scroll to Top</a>
   </article>
 </template>
 
