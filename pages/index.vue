@@ -259,9 +259,18 @@ article {
         color: $blue;
         max-width: 80vw;
 
+        @media screen and (max-width: 480px) {
+          font-size: 2rem;
+          line-height: 2rem;
+        }
+
         .date {
           display: block;
           font-size: 2rem;
+
+          @media screen and (max-width: 480px) {
+            font-size: 1.5rem;
+          }
         }
       }
 
