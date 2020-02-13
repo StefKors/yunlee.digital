@@ -11,7 +11,7 @@
         <div
           class="group"
           v-bind:style="{
-            transform: `translate(${-percentage}%) translate3d(0px, 0px, 0px)`
+            transform: `translate(${-percentage}%) translate3d(-280px, 0px, 0px)`
           }"
           v-for="index in 5"
           :key="index"
@@ -93,6 +93,7 @@
 <script>
 import { dragscroll } from 'vue-dragscroll'
 import moment from 'moment'
+import textBalancer from 'text-balancer'
 // Text balancer
 // testing
 export default {
@@ -169,6 +170,7 @@ export default {
   },
   mounted() {
     this.handleScroll()
+    textBalancer.balanceText('.title, .introduction')
   },
   filters: {
     onlyYear(val) {
@@ -201,6 +203,10 @@ article {
   .introduction {
     max-width: 1200px;
     font-size: 2rem;
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.8rem;
+    }
   }
 
   .index {
@@ -221,6 +227,10 @@ article {
     .group {
       width: auto;
       font-size: 2rem;
+
+      @media screen and (max-width: 480px) {
+        font-size: 1.8rem;
+      }
 
       & + .group {
         margin-left: 4rem;
