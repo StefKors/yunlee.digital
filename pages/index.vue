@@ -92,7 +92,6 @@
 
 <script>
 import { dragscroll } from 'vue-dragscroll'
-import moment from 'moment'
 import textBalancer from 'text-balancer'
 // Text balancer
 // testing
