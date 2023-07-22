@@ -3,6 +3,9 @@
   "description": "Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.",
   "author": "Stef Kors",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0 <17.0.0"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
