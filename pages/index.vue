@@ -6,41 +6,6 @@
     </div>
 
     <div class="projects">
-      <!-- TABLE OF CONTENTS -->
-      <div v-if="projects.length !== 0" class="index">
-        <div
-          class="group"
-          v-bind:style="{
-            transform: `translate(${-percentage}%) translate3d(-280px, 0px, 0px)`
-          }"
-          v-for="index in 5"
-          :key="index"
-        >
-          <!-- GROUP -->
-          <div
-            v-for="(project, i) in projects"
-            :key="project.id"
-            v-bind:project="project"
-            class="item"
-            v-bind:style="{
-              transform: `translate3d(${(i * num) / 20}px, 0, 0)`
-            }"
-          >
-            <a :href="'#key' + i">
-              {{ $prismic.asText(project.title) }}
-              <span class="date">
-                <span v-if="project.start_date">
-                  {{ project.start_date | onlyYear }}
-                </span>
-                <span v-if="project.end_date">
-                  {{ project.end_date | onlyYear }}
-                </span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       <!-- ALL PROJECTS -->
       <div class="project" v-if="projects">
         <div
@@ -72,17 +37,7 @@
             <prismic-rich-text :field="project.description" />
           </div>
 
-          <div v-if="project.gallery" class="media" v-dragscroll>
-            <div v-for="(item, i) in project.gallery" :key="i">
-              <a :href="item.image.url" target="_blank">
-                <img
-                  v-if="item.image.url"
-                  :src="`${item.image.url},w=600&h=600`"
-                  :alt="item.image.alt"
-                />
-              </a>
-            </div>
-          </div>
+          <Gallery :project="project" />
         </div>
       </div>
     </div>
@@ -91,11 +46,14 @@
 </template>
 
 <script>
-import { dragscroll } from 'vue-dragscroll'
+import Gallery from '~/components/Gallery'
 import textBalancer from 'text-balancer'
 // Text balancer
 // testing
 export default {
+  components: {
+    Gallery,
+  },
   head() {
     return {
       title: 'Yun Ingrid Eel, Homepage',
@@ -107,9 +65,6 @@ export default {
         }
       ]
     }
-  },
-  directives: {
-    dragscroll
   },
   data() {
     return {
@@ -162,13 +117,13 @@ export default {
     }
   },
   created() {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
-    window.removeEventListener('scroll', this.handleScroll)
+    // window.removeEventListener('scroll', this.handleScroll)
   },
   mounted() {
-    this.handleScroll()
+    // this.handleScroll()
     textBalancer.balanceText('.title, .introduction')
   },
   filters: {

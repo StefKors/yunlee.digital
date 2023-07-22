@@ -32,6 +32,7 @@ export default {
       },
     ],
   },
+  components: true,
   /*
    ** Customize the progress-bar color
    */
