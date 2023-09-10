@@ -30,11 +30,12 @@ const fetchOverviewRoutes = async (projectRoutes) => {
     [Prismic.Predicates.any('document.type', ['overview'])],
     { pageSize: 100 }
   )
-
   // Map overview pages to routes
   return overview.results.map(overview => {
     const projects = projectRoutes.filter(proj => {
-      return proj.route.startWith('/' + overview.uid)
+      return proj.route.startsWith('/' + overview.uid)
+    }).map((projroute) => {
+      return projroute.payload
     })
     return {
       route: '/' + overview.uid,

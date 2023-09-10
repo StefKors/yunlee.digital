@@ -15,7 +15,7 @@
           class="item"
           :id="'key' + i"
         >
-          <div v-if="project.title" class="title">
+          <div v-if="project?.title" class="title">
             {{ $prismic.asText(project.title) }}
             <span class="date">
               <span v-if="project.start_date">
@@ -84,7 +84,7 @@ export default {
       return {
         home,
         projects: projects,
-        documentId: document.id
+        documentId: payload.id
       }
     }
 
