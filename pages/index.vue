@@ -74,16 +74,48 @@ export default {
     }
   },
   async asyncData({ $prismic, error, payload }) {
-    const home = payload
-    const projects = payload.projects.map(project => {
-      return project.link_to_projects.data
-    })
+    if (payload) {
+      const home = payload
+      const projects = payload.projects.map(project => {
+        return project.link_to_projects.data
+      })
 
-    // Returns data to be used in template
-    return {
-      home,
-      projects: projects,
-      documentId: document.id
+      // Returns data to be used in template
+      return {
+        home,
+        projects: projects,
+        documentId: document.id
+      }
+    }
+
+    try {
+      // Query to get API object
+      // Query to get blog home content with LinkedContent
+      const document = await $prismic.api.getSingle('homepage-test-', {
+        fetchLinks: [
+          'projects.title',
+          'projects.type',
+          'projects.description',
+          'projects.start_date',
+          'projects.end_date',
+          'projects.gallery'
+        ]
+      })
+
+      const home = document.data
+      const projects = document.data.projects.map(project => {
+        return project.link_to_projects.data
+      })
+
+      // Returns data to be used in template
+      return {
+        home,
+        projects: projects,
+        documentId: document.id
+      }
+    } catch (e) {
+      // Returns error page
+      error({ statusCode: 404, message: 'Page not found' })
     }
   },
   methods: {

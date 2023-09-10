@@ -23,8 +23,6 @@ export default {
   layout: 'default',
 
   async asyncData({ $prismic, error, params, payload }) {
-
-
     if (payload) {
       return {
         title: payload.overview?.title,
