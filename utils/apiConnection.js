@@ -21,7 +21,7 @@ const fetchHomePageRoute = async () => {
   }
 }
 
-const fetchOverviewRoutes = async () => {
+const fetchOverviewRoutes = async (projectRoutes) => {
   // Create Client
   const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
 
@@ -33,9 +33,15 @@ const fetchOverviewRoutes = async () => {
 
   // Map overview pages to routes
   return overview.results.map(overview => {
+    const projects = projectRoutes.filter(proj => {
+      return proj.route.startWith('/' + overview.uid)
+    })
     return {
       route: '/' + overview.uid,
-      payload: overview
+      payload: {
+        overview: overview,
+        projects: projects
+      }
     }
   })
 }
@@ -74,11 +80,13 @@ export const fetchAllRoutePaths = async () => {
   // Fetch homepage route
   const homepageRoute = await fetchHomePageRoute()
 
-  // Fetch overview routes
-  const overviewRoutes = await fetchOverviewRoutes()
+    // Fetch project routes
+    const projectRoutes = await fetchProjectRoutes()
 
-  // Fetch project routes
-  const projectRoutes = await fetchProjectRoutes()
+  // Fetch overview routes
+  const overviewRoutes = await fetchOverviewRoutes(projectRoutes)
+
+
 
   // Join all routes together
   const routes = [homepageRoute, ...projectRoutes, ...overviewRoutes]

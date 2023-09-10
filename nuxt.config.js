@@ -33,27 +33,21 @@ export default {
   target: 'static',
   ssr: true,
   generate: {
-    routes() {
-      let user = { title: 'string' }
-      return [{
-        route: '/performances',
-        payload: user
-      }]
-      // callback(null, [
-      //   {
-      //     route: '/performances',
-      //     payload: user
-      //   }
-      // ])
+    routes(callback) {
+      // let user = { title: 'string' }
+      // return [{
+      //   route: '/performances',
+      //   payload: user
+      // }]
 
-      // fetchAllRoutePaths().then((routes) => {
-      //   // console.info(routes)
+      fetchAllRoutePaths().then((routes) => {
+        // console.info(routes)
 
-      //   callback(null, routes)
-      // }).catch((error) => {
-      //   console.log(error)
-      //   callback(null, [])
-      // })
+        callback(null, routes)
+      }).catch((error) => {
+        console.log(error)
+        callback(null, [])
+      })
     }
   },
   /*
@@ -98,7 +92,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   ...routerBase,
-  plugins: [],
+  plugins: [
+    { src: '@/plugins/vue-dragscroll.js', mode: 'client' }
+  ],
 
   prismic: {
     endpoint: 'https://yuneel.cdn.prismic.io/api/v2',

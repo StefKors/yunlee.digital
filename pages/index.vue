@@ -44,7 +44,9 @@
             <prismic-rich-text :field="project.description" />
           </div>
 
-          <Gallery :project="project" />
+          <ClientOnly fallback-tag="span" fallback="Loading comments...">
+            <Gallery :project="project" />
+          </ClientOnly>
         </div>
       </div>
     </div>

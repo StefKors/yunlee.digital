@@ -12,14 +12,14 @@
   </div>
 </template>
 <script>
-import { dragscroll } from 'vue-dragscroll'
+// import { dragscroll } from 'vue-dragscroll'
 
 export default {
   props: {
     project: {},
   },
-  directives: {
-    dragscroll
-  }
+  // directives: {
+  //   dragscroll
+  // }
 }
 </script>
