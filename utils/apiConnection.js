@@ -37,6 +37,8 @@ const fetchOverviewRoutes = async (projectRoutes) => {
     }).map((projroute) => {
       return projroute.payload
     })
+
+    console.log(overview)
     return {
       route: '/' + overview.uid,
       payload: {

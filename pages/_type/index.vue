@@ -25,8 +25,8 @@ export default {
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
       return {
-        title: payload.overview?.title,
-        description: payload.overview?.description,
+        title: payload.overview?.data?.title,
+        description: payload.overview?.data?.description,
         type: params.type,
         projects: payload.projects
       }
