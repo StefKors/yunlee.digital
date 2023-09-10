@@ -27,13 +27,18 @@
             </span>
           </div>
 
-          <div class="type">
-            <p>
-              <NuxtLink :to="$prismic.asText(project.type).toLowerCase()">
-                {{ $prismic.asText(project.type) }}
-              </NuxtLink>
-            </p>
-          </div>
+          <p>
+            <span
+              class="type"
+              v-if="project.types"
+              v-for="(type, i) in project.types"
+            >
+              <NuxtLink :to="type.projectoverview.uid">{{
+                capital(type.projectoverview.uid)
+              }}</NuxtLink
+              ><span v-if="i < project.types.length - 1">, </span>
+            </span>
+          </p>
 
           <div v-if="project.description" class="description">
             <prismic-rich-text :field="project.description" />
@@ -55,7 +60,7 @@ import textBalancer from 'text-balancer'
 export default {
   layout: 'default',
   components: {
-    Gallery,
+    Gallery
   },
   data() {
     return {
@@ -66,35 +71,17 @@ export default {
       }
     }
   },
-  async asyncData({ $prismic, error }) {
-    try {
-      // Query to get API object
-      // Query to get blog home content with LinkedContent
-      const document = await $prismic.api.getSingle('homepage-test-', {
-        fetchLinks: [
-          'projects.title',
-          'projects.type',
-          'projects.description',
-          'projects.start_date',
-          'projects.end_date',
-          'projects.gallery'
-        ]
-      })
+  async asyncData({ $prismic, error, payload }) {
+    const home = payload
+    const projects = payload.projects.map(project => {
+      return project.link_to_projects.data
+    })
 
-      const home = document.data
-      const projects = document.data.projects.map(project => {
-        return project.link_to_projects.data
-      })
-
-      // Returns data to be used in template
-      return {
-        home,
-        projects: projects,
-        documentId: document.id
-      }
-    } catch (e) {
-      // Returns error page
-      error({ statusCode: 404, message: 'Page not found' })
+    // Returns data to be used in template
+    return {
+      home,
+      projects: projects,
+      documentId: document.id
     }
   },
   methods: {
@@ -105,6 +92,9 @@ export default {
 
       this.num = elTop - winTop
       this.percentage = (100 / elTop) * winTop
+    },
+    capital(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1)
     }
   },
   created() {
@@ -115,7 +105,7 @@ export default {
   },
   mounted() {
     // this.handleScroll()
-    textBalancer.balanceText('.title, .introduction')
+    // textBalancer.balanceText('.title, .introduction')
   },
   filters: {
     onlyYear(val) {

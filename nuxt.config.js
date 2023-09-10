@@ -1,5 +1,5 @@
 import Mode from 'frontmatter-markdown-loader/mode'
-import Prismic from 'prismic-javascript'
+import { fetchAllRoutePaths } from './utils/apiConnection'
 const routerBase = {
   router: {
     base: '/'
@@ -16,64 +16,44 @@ const apiOptions = {
         // of a content relationship field in the page type
         type: 'type'
       }
+    },
+    {
+      type: 'overview',
+      path: '/:type',
+      resolvers: {
+        // A list of "path variables" mapped to the API ID
+        // of a content relationship field in the page type
+        type: 'type'
+      }
     }
   ]
 }
 
-const fetchAllRoutePaths = async () => {
-  // Create Client
-  const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
-
-  // Query for all overview pages
-  const overview = await client.query(
-    [
-      Prismic.Predicates.any('document.type', ['overview']),
-    ], { fetch: ['overview.title'], pageSize: 100 }
-  )
-  
-  // Map overview pages to routes
-  const overviewRoutes = overview.results.map(project => {
-    return "/" + project.uid
-  })
-  
-  // Query for all project pages
-  const projects = await client.query(
-    [
-      Prismic.Predicates.any('document.type', ['projects']),
-    ], { fetch: ['projects.types', 'projects.uid'], pageSize: 100 }
-  )
-
-  // Map project pages to project routes
-  const projectRoutes = projects.results.map(project => {
-    const types = project.data.types.map((type) => {
-      const typeUID = type?.projectoverview?.uid
-      if (typeUID) {
-        return "/" + typeUID + "/" + project.uid
-      }
-      return null
-    }).filter(n => n)
-    return types
-  }).flat(1)
-
-  // Join all routes together
-  const routes = [...projectRoutes, ...overviewRoutes]
-
-  // Return routes
-  return routes
-}
-
 export default {
   target: 'static',
-  ssr: false,
+  ssr: true,
   generate: {
-    routes(callback) {
-      fetchAllRoutePaths().then((routes) => {
-        console.info(routes)
-        callback(null, routes)
-      }).catch((error) => {
-        console.log(error)
-        callback(null, [])
-      })
+    routes() {
+      let user = { title: 'string' }
+      return [{
+        route: '/performances',
+        payload: user
+      }]
+      // callback(null, [
+      //   {
+      //     route: '/performances',
+      //     payload: user
+      //   }
+      // ])
+
+      // fetchAllRoutePaths().then((routes) => {
+      //   // console.info(routes)
+
+      //   callback(null, routes)
+      // }).catch((error) => {
+      //   console.log(error)
+      //   callback(null, [])
+      // })
     }
   },
   /*
