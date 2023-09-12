@@ -60,9 +60,15 @@ body {
 }
 $bg: #151515;
 $pink: #f29a9d;
+$pink-10: #f29a9d30;
 $blue: #3d87ca;
 $blue: #15a09b;
 $transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 400ms;
+
+hr {
+  color: $pink;
+  margin-top: 3rem;
+}
 
 p:first-of-type {
   margin-top: 0;
@@ -82,6 +88,32 @@ article {
 
     @media screen and (max-width: 480px) {
       font-size: 1.8rem;
+    }
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    color: $blue;
+
+    .filter {
+      background-color: #262626;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      transition: ease 200ms;
+      user-select: none; 
+
+      &:hover {
+        color: $pink;
+      }
+
+      &.active {
+        background-color: $pink-10;
+        color: $pink;
+      }
     }
   }
 
@@ -171,8 +203,42 @@ article {
 
         position: relative;
 
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
         .description {
           max-width: 450px;
+        }
+
+        .single-media {
+          max-width: 150%;
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          transition: $transition;
+          overflow-x: scroll;
+          padding-top: 1rem;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          img {
+            opacity: 0.5;
+            max-height: 450px;
+            transition: $transition;
+            border-radius: 8px;
+
+            &:hover {
+              opacity: 1;
+              transition: $transition;
+            }
+          }
+
+          div + div {
+            padding: 0 0.2rem;
+          }
         }
 
         .media {
@@ -244,5 +310,4 @@ article {
     right: 0px !important;
   }
 }
-
 </style>

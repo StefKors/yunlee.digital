@@ -4,6 +4,18 @@
     <div class="introduction">
       <prismic-rich-text :field="home.bio" />
     </div>
+    <hr />
+    <div class="filters">
+      <div
+        class="filter"
+        v-for="(overview, i) in overviews"
+        :key="overview.id"
+        v-on:click="onFilterClick(i)"
+        v-bind:class="{ active: filter === i }"
+      >
+        <prismic-rich-text :field="overview.data.title" />
+      </div>
+    </div>
 
     <div class="projects">
       <!-- ALL PROJECTS -->
@@ -15,38 +27,44 @@
           class="item"
           :id="'key' + i"
         >
-          <div v-if="project?.title" class="title">
-            {{ $prismic.asText(project.title) }}
-            <span class="date">
-              <span v-if="project.start_date">
-                {{ project.start_date | onlyYear }}
+          <NuxtLink :to="projectLink(project)">
+            <div class="single-media">
+              <prismic-image :field="project.gallery?.[0].image" />
+            </div>
+          </NuxtLink>
+          <div>
+            <div v-if="project?.title" class="title">
+              {{ $prismic.asText(project.title) }}
+              <span class="date">
+                <span v-if="project.start_date">
+                  {{ project.start_date | onlyYear }}
+                </span>
+                <span v-if="project.end_date">
+                  - {{ project.end_date | onlyYear }}
+                </span>
               </span>
-              <span v-if="project.end_date">
-                - {{ project.end_date | onlyYear }}
+            </div>
+
+            <p>
+              <span
+                class="type"
+                v-if="project.types"
+                v-for="(type, i) in project.types"
+              >
+                <NuxtLink :to="type.projectoverview.uid">{{
+                  capital(type.projectoverview.uid)
+                }}</NuxtLink
+                ><span v-if="i < project.types.length - 1">, </span>
               </span>
-            </span>
+            </p>
+            <div v-if="project.description" class="description">
+              <prismic-rich-text :field="project.description" />
+            </div>
           </div>
 
-          <p>
-            <span
-              class="type"
-              v-if="project.types"
-              v-for="(type, i) in project.types"
-            >
-              <NuxtLink :to="type.projectoverview.uid">{{
-                capital(type.projectoverview.uid)
-              }}</NuxtLink
-              ><span v-if="i < project.types.length - 1">, </span>
-            </span>
-          </p>
-
-          <div v-if="project.description" class="description">
-            <prismic-rich-text :field="project.description" />
-          </div>
-
-          <ClientOnly fallback-tag="span" fallback="Loading comments...">
+          <!-- <ClientOnly fallback-tag="span" fallback="Loading comments...">
             <Gallery :project="project" />
-          </ClientOnly>
+          </ClientOnly> -->
         </div>
       </div>
     </div>
@@ -56,9 +74,6 @@
 
 <script>
 import Gallery from '~/components/Gallery'
-import textBalancer from 'text-balancer'
-// Text balancer
-// testing
 export default {
   layout: 'default',
   components: {
@@ -70,13 +85,14 @@ export default {
       num: 0,
       fields: {
         title: null
-      }
+      },
+      filter: null
     }
   },
   async asyncData({ $prismic, error, payload }) {
     if (payload) {
-      const home = payload
-      const projects = payload.projects.map(project => {
+      const home = payload.document
+      const projects = home.projects.map(project => {
         return project.link_to_projects.data
       })
 
@@ -84,6 +100,7 @@ export default {
       return {
         home,
         projects: projects,
+        overviews: payload.overviews,
         documentId: payload.id
       }
     }
@@ -95,6 +112,8 @@ export default {
         fetchLinks: [
           'projects.title',
           'projects.type',
+          'projects.uid',
+          'projects.types',
           'projects.description',
           'projects.start_date',
           'projects.end_date',
@@ -107,10 +126,17 @@ export default {
         return project.link_to_projects.data
       })
 
+      // Query for all overview pages
+      const overview = await $prismic.api.query(
+        [$prismic.predicates.any('document.type', ['overview'])],
+        { pageSize: 100 }
+      )
+
       // Returns data to be used in template
       return {
         home,
         projects: projects,
+        overviews: overview.results,
         documentId: document.id
       }
     } catch (e) {
@@ -129,6 +155,25 @@ export default {
     },
     capital(word) {
       return word.charAt(0).toUpperCase() + word.slice(1)
+    },
+    projectLink(project) {
+      const type = project?.types?.find(type => {
+        return type.projectoverview.uid
+      })
+      if (type) {
+        return `/${type.projectoverview.uid}/${project.uid}`
+      } else {
+        console.error('todo: remove')
+        return 'test'
+      }
+    },
+    onFilterClick(index) {
+      console.log("click", index, this.filter == index)
+      if (this.filter == index) {
+        this.filter = null
+      } else {
+        this.filter = index
+      }
     }
   },
   created() {
@@ -139,7 +184,6 @@ export default {
   },
   mounted() {
     // this.handleScroll()
-    // textBalancer.balanceText('.title, .introduction')
   },
   filters: {
     onlyYear(val) {

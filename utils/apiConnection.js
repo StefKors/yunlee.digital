@@ -15,13 +15,22 @@ const fetchHomePageRoute = async () => {
     ]
   })
 
+  // Query for all overview pages
+  const overview = await client.query(
+    [Prismic.Predicates.any('document.type', ['overview'])],
+    { pageSize: 100 }
+  )
+
   return {
     route: '/',
-    payload: document.data
+    payload: {
+      document: document.data,
+      overview: overview.results
+    }
   }
 }
 
-const fetchOverviewRoutes = async (projectRoutes) => {
+const fetchOverviewRoutes = async projectRoutes => {
   // Create Client
   const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
 
@@ -32,11 +41,13 @@ const fetchOverviewRoutes = async (projectRoutes) => {
   )
   // Map overview pages to routes
   return overview.results.map(overview => {
-    const projects = projectRoutes.filter(proj => {
-      return proj.route.startsWith('/' + overview.uid)
-    }).map((projroute) => {
-      return projroute.payload
-    })
+    const projects = projectRoutes
+      .filter(proj => {
+        return proj.route.startsWith('/' + overview.uid)
+      })
+      .map(projroute => {
+        return projroute.payload
+      })
 
     console.log(overview)
     return {
@@ -83,13 +94,11 @@ export const fetchAllRoutePaths = async () => {
   // Fetch homepage route
   const homepageRoute = await fetchHomePageRoute()
 
-    // Fetch project routes
-    const projectRoutes = await fetchProjectRoutes()
+  // Fetch project routes
+  const projectRoutes = await fetchProjectRoutes()
 
   // Fetch overview routes
   const overviewRoutes = await fetchOverviewRoutes(projectRoutes)
-
-
 
   // Join all routes together
   const routes = [homepageRoute, ...projectRoutes, ...overviewRoutes]
