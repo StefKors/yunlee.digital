@@ -25,12 +25,24 @@ export default {
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
-      console.log('payload', payload.projects)
+      const formattedProjects = payload.projects.map(project => {
+        return {
+          uid: project?.uid,
+          title: project?.data?.title,
+          description: project?.data?.description,
+          type: project?.data?.type,
+          types: project?.data?.types,
+          start_date: project?.data?.start_date,
+          end_date: project?.data?.end_date,
+          gallery: project?.data?.gallery,
+        }
+      })
+
       return {
         title: payload.overview?.data?.title,
         description: payload.overview?.data?.description,
         type: params.type,
-        projects: payload.projects
+        projects: formattedProjects
       }
     }
 
