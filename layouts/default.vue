@@ -104,7 +104,7 @@ article {
       padding: 0.5rem 1rem;
       border-radius: 1rem;
       transition: ease 200ms;
-      user-select: none; 
+      user-select: none;
 
       &:hover {
         color: $pink;
@@ -241,36 +241,6 @@ article {
             padding: 0 0.2rem;
           }
         }
-
-        .media {
-          max-width: 150%;
-          position: relative;
-          display: flex;
-          flex-direction: row;
-          transition: $transition;
-          overflow-x: scroll;
-          cursor: grab;
-          padding-top: 1rem;
-
-          &::-webkit-scrollbar {
-            display: none;
-          }
-
-          img {
-            opacity: 0.5;
-            max-height: 450px;
-            transition: $transition;
-
-            &:hover {
-              opacity: 1;
-              transition: $transition;
-            }
-          }
-
-          div + div {
-            padding: 0 0.2rem;
-          }
-        }
       }
     }
   }
@@ -300,6 +270,36 @@ article {
       border: none;
       margin: 2rem 0 0 0;
     }
+  }
+}
+
+.media {
+  max-width: 150%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  transition: $transition;
+  overflow-x: scroll;
+  cursor: grab;
+  padding-top: 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  img {
+    opacity: 0.5;
+    max-height: 450px;
+    transition: $transition;
+
+    &:hover {
+      opacity: 1;
+      transition: $transition;
+    }
+  }
+
+  div + div {
+    padding: 0 0.2rem;
   }
 }
 

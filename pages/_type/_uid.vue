@@ -2,8 +2,8 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        <h1>article page</h1>
-        <prismic-rich-text :field="article.title" />
+        <Gallery :project="project" />
+        <prismic-rich-text class="introduction" :field="project.title" />
         <!-- <DateFormatter :data="article" /> -->
       </div>
     </div>
@@ -11,16 +11,24 @@
 </template>
 
 <script>
-import get from 'lodash.get'
+import Gallery from '~/components/Gallery'
 
 export default {
   layout: 'default',
-  async asyncData({ $prismic, error, params }) {
-    try {
-      const article = await $prismic.api.getByUID("projects", params.uid)
+  components: {
+    Gallery
+  },
+  async asyncData({ $prismic, error, params, payload }) {
+    if (payload) {
       return {
-        article: article.data,
-        title: article.data.title[0].text
+        project: payload.data
+      }
+    }
+    try {
+      const project = await $prismic.api.getByUID("projects", params.uid)
+      console.log(project.data)
+      return {
+        project: project.data
       }
     } catch (e) {
       // Returns error page
