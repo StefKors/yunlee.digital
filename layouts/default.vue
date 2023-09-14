@@ -94,7 +94,7 @@ article {
   .filters {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     gap: 1rem;
     padding: 1rem 0;
     color: $blue;
@@ -226,6 +226,7 @@ article {
 
           img {
             opacity: 0.5;
+            max-width: 450px;
             max-height: 450px;
             transition: $transition;
             border-radius: 8px;

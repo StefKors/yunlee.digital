@@ -2,28 +2,30 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        <prismic-rich-text v-if="title" :field="title" />
+        
+        <div class="introduction">
+          <prismic-rich-text v-if="title" :field="title" />
         <prismic-rich-text v-if="description" :field="description" />
-        <br />
-        <div v-for="(project, i) in projects" :key="i">
-          <NuxtLink :to="'/' + type + '/' + project.uid">
-            <prismic-rich-text :field="project.data.title" />
-          </NuxtLink>
         </div>
+        <br />
+
+        <ProjectsList v-if="projects" :projects="projects" />
       </div>
     </div>
   </article>
 </template>
 
 <script>
-import get from 'lodash.get'
-import {fetchPayload} from "@/utils/apiConnection"
+import ProjectsList from '~/components/ProjectsList'
 
 export default {
   layout: 'default',
-
+  components: {
+    ProjectsList
+  },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
+      console.log('payload', payload.projects)
       return {
         title: payload.overview?.data?.title,
         description: payload.overview?.data?.description,
@@ -36,24 +38,51 @@ export default {
       const overview = await $prismic.api.getByUID('overview', params.type)
 
       const allProjects = await $prismic.api.query(
-        [$prismic.predicates.any('document.type', ['projects'])
-      ],
-        { fetch: ['projects.types', 'projects.uid', 'projects.title'], pageSize: 100 }
+        [$prismic.predicates.any('document.type', ['projects'])],
+        {
+          fetch: [
+            'projects.title',
+            'projects.type',
+            'projects.uid',
+            'projects.types',
+            'projects.description',
+            'projects.start_date',
+            'projects.end_date',
+            'projects.gallery'
+          ],
+          pageSize: 100
+        }
       )
 
-      const projects = allProjects?.results?.filter((proj) => {
-        const types = proj.data.types.map((type) => {
-          return type.projectoverview.uid
-        })
+      const projects =
+        allProjects?.results?.filter(proj => {
+          const types = proj.data.types.map(type => {
+            return type.projectoverview.uid
+          })
 
-        return types.includes(params.type)
-      }) ?? []
+          return types.includes(params.type)
+        }) ?? []
+
+      const formattedProjects = projects.map(project => {
+        return {
+          uid: project?.uid,
+          title: project?.data?.title,
+          description: project?.data?.description,
+          type: project?.data?.type,
+          types: project?.data?.types,
+          start_date: project?.data?.start_date,
+          end_date: project?.data?.end_date,
+          gallery: project?.data?.gallery,
+        }
+      })
+
+      console.log('formattedProjects', formattedProjects)
 
       return {
         title: overview?.data?.title,
         description: overview?.data?.description,
         type: params.type,
-        projects: projects
+        projects: formattedProjects
       }
     } catch (e) {
       // Returns error page
