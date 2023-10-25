@@ -27,6 +27,7 @@ export default {
     try {
       const project = await $prismic.api.getByUID("projects", params.uid)
       console.log(project.data)
+      console.log(project.data.body)
       return {
         project: project.data
       }

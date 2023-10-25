@@ -56,7 +56,7 @@
 
 export default {
   props: {
-    projects: {},
+    projects: {}
   },
   methods: {
     capital(word) {
