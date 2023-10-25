@@ -11,12 +11,15 @@
       >
         <NuxtLink v-if="project?.gallery?.[0].image" :to="projectLink(project)">
           <div class="single-media">
-            <prismic-image :field="project?.gallery?.[0].image" />
+            <PrismicImage :field="imageURLMods(project?.gallery?.[0].image)" />
           </div>
         </NuxtLink>
         <div>
           <div v-if="project?.title" class="title">
-            {{ $prismic.asText(project.title) }}
+            <NuxtLink v-if="projectLink(project)" :to="projectLink(project)">
+              {{ $prismic.asText(project.title) }}
+            </NuxtLink>
+            <span v-else>{{ $prismic.asText(project.title) }}</span>
             <span class="date">
               <span v-if="project.start_date">
                 {{ project.start_date | onlyYear }}
@@ -30,11 +33,11 @@
           <p>
             <span
               class="type"
-              v-if="project.types"
+              v-if="hasTypes(project.types)"
               v-for="(type, i) in project.types"
             >
-              <NuxtLink :to="type.projectoverview.uid">{{
-                capital(type.projectoverview.uid)
+              <NuxtLink :to="type?.projectoverview?.uid">{{
+                capital(type?.projectoverview?.uid)
               }}</NuxtLink
               ><span v-if="i < project.types.length - 1">, </span>
             </span>
@@ -59,18 +62,37 @@ export default {
     projects: {}
   },
   methods: {
+    hasTypes(types) {
+      return Boolean(types?.[0]?.projectoverview?.uid)
+    },
+    imageURLMods(imageObj) {
+      let url = new URL(imageObj.url)
+      url.searchParams.delete('w')
+      url.searchParams.delete('h')
+      url.searchParams.set('w', 450)
+      url.searchParams.set('h', 450)
+      url.searchParams.set('fit', 'max')
+      // https://images.prismic.io/yuneel/...ympics007.JPG?auto=compress,format&rect=774,0,3097,3097&w=1200&h=1200&clip=fit&max-w=450&max-h=450
+      imageObj.url = url.toString()
+      return imageObj
+    },
     capital(word) {
-      return word.charAt(0).toUpperCase() + word.slice(1)
+      const firstWord = word?.charAt(0)?.toUpperCase()
+      if (firstWord) {
+        return firstWord + word?.slice(1)
+      }
+      return word
     },
     projectLink(project) {
       const type = project?.types?.find(type => {
-        return type.projectoverview.uid
+        return type?.projectoverview?.uid
       })
-      if (type) {
+
+      if (!!type) {
         return `/${type.projectoverview.uid}/${project.uid}`
       } else {
         console.error('todo: remove')
-        return 'test'
+        return false
       }
     }
   },
