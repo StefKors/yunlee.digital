@@ -107,10 +107,10 @@ article {
     gap: 1rem;
     padding: 1rem 0;
     color: $blue;
+    flex-wrap: wrap;
 
     @media screen and (max-width: 480px) {
       font-size: 0.5rem;
-      flex-wrap: wrap;
       gap: 0.5rem;
     }
 

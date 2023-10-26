@@ -2,10 +2,9 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        
         <div class="introduction">
           <prismic-rich-text v-if="title" :field="title" />
-        <prismic-rich-text v-if="description" :field="description" />
+          <prismic-rich-text v-if="description" :field="description" />
         </div>
         <br />
 
@@ -34,7 +33,7 @@ export default {
           types: project?.data?.types,
           start_date: project?.data?.start_date,
           end_date: project?.data?.end_date,
-          gallery: project?.data?.gallery,
+          gallery: project?.data?.gallery
         }
       })
 
@@ -84,7 +83,7 @@ export default {
           types: project?.data?.types,
           start_date: project?.data?.start_date,
           end_date: project?.data?.end_date,
-          gallery: project?.data?.gallery,
+          gallery: project?.data?.gallery
         }
       })
 
