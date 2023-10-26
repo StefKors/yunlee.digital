@@ -332,4 +332,51 @@ article {
     right: 0px !important;
   }
 }
+
+.about-page {
+  max-width: 1200px;
+
+  .introduction {
+    p {
+      margin: 1rem auto;
+    }
+  }
+
+  .dates {
+    margin: 2rem auto;
+  }
+
+  .date_title {
+    color: $blue;
+    margin: 1rem auto;
+  }
+
+  .events {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .event_type {
+    background-color: #262626;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    transition: ease 200ms;
+    user-select: none;
+    color: $blue;
+    display: inline-block;
+    font-size: 0.5rem;
+  }
+
+  .event_title {
+    color: $blue;
+
+    // border: 1px solid;
+    // border-radius: 0.2rem;
+    // margin: 1rem 0;
+  }
+}
 </style>

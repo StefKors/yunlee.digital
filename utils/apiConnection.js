@@ -1,5 +1,18 @@
 import Prismic from 'prismic-javascript'
 
+const fetchAboutRoute = async () => {
+  // Create Client
+  const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
+  const document = await client.getSingle('about')
+
+  return {
+    route: '/about',
+    payload: {
+      document: document.data
+    }
+  }
+}
+
 const fetchSoundsRoute = async () => {
   // Create Client
   const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
@@ -116,10 +129,14 @@ export const fetchAllRoutePaths = async () => {
   // Fetch sounds route
   const soundsRoute = await fetchSoundsRoute()
 
+  // Fetch about route
+  const aboutRoute = await fetchAboutRoute()
+
   // Join all routes together
   const routes = [
     homepageRoute,
     soundsRoute,
+    aboutRoute,
     ...projectRoutes,
     ...overviewRoutes
   ]
