@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  scrollToTop: true,
   head() {
     return {
       title: 'Yun Ingrid Eel, Homepage',
@@ -37,6 +38,10 @@ html {
   font-size: 22px;
   line-height: 1.5;
   scroll-behavior: smooth;
+
+  @media screen and (max-width: 480px) {
+    font-size: 16px;
+  }
 }
 
 body {
@@ -82,12 +87,16 @@ a {
 article {
   padding: 2rem;
 
+  @media screen and (max-width: 480px) {
+    padding: 0.8rem;
+  }
+
   .introduction {
     max-width: 1200px;
     font-size: 2rem;
 
     @media screen and (max-width: 480px) {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -98,6 +107,12 @@ article {
     gap: 1rem;
     padding: 1rem 0;
     color: $blue;
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
 
     .filter {
       background-color: #262626;
@@ -178,8 +193,8 @@ article {
         max-width: 80vw;
 
         @media screen and (max-width: 480px) {
-          font-size: 2rem;
-          line-height: 2rem;
+          font-size: 1.6rem;
+          line-height: 1.6rem;
         }
 
         .date {
@@ -207,6 +222,10 @@ article {
         flex-direction: row;
         gap: 1rem;
 
+        @media screen and (max-width: 480px) {
+          flex-direction: column;
+        }
+
         .description {
           max-width: 450px;
         }
@@ -226,8 +245,10 @@ article {
 
           img {
             opacity: 0.5;
-            max-width: 450px;
-            max-height: 450px;
+            min-width: 250px;
+            width: 36vw;
+            max-width: 550px;
+            max-height: 550px;
             transition: $transition;
             border-radius: 8px;
 

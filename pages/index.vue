@@ -22,6 +22,9 @@
       >
         <prismic-rich-text :field="overview.data.title" />
       </div>
+      <NuxtLink class="filter" to="/sounds">
+        <h1>sounds</h1>
+      </NuxtLink>
     </div>
     <ProjectsList :projects="filteredProjects" />
     <a href="#top">Scroll to Top</a>
@@ -33,7 +36,7 @@ import ProjectsList from '~/components/ProjectsList'
 export default {
   layout: 'default',
   components: {
-    ProjectsList,
+    ProjectsList
   },
   data() {
     return {
@@ -135,6 +138,6 @@ export default {
         this.filter = index
       }
     }
-  },
+  }
 }
 </script>

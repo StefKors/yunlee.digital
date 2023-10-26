@@ -16,9 +16,11 @@
         </NuxtLink>
         <div>
           <div v-if="project?.title" class="title">
-            <NuxtLink v-if="projectLink(project)" :to="projectLink(project)">
-              {{ $prismic.asText(project.title) }}
-            </NuxtLink>
+            <span v-if="hasProjectLink(project)">
+              <NuxtLink :to="projectLink(project)">
+                {{ $prismic.asText(project.title) }}
+              </NuxtLink>
+            </span>
             <span v-else>{{ $prismic.asText(project.title) }}</span>
             <span class="date">
               <span v-if="project.start_date">
@@ -69,9 +71,11 @@ export default {
       let url = new URL(imageObj.url)
       url.searchParams.delete('w')
       url.searchParams.delete('h')
-      url.searchParams.set('w', 450)
-      url.searchParams.set('h', 450)
+      url.searchParams.set('w', 550 * 2) // retina
+      url.searchParams.set('h', 550 * 2) // retina
       url.searchParams.set('fit', 'max')
+      url.searchParams.set('fill', 'solid')
+      url.searchParams.set('fill-color', '151515')
       // https://images.prismic.io/yuneel/...ympics007.JPG?auto=compress,format&rect=774,0,3097,3097&w=1200&h=1200&clip=fit&max-w=450&max-h=450
       imageObj.url = url.toString()
       return imageObj
@@ -83,17 +87,15 @@ export default {
       }
       return word
     },
+    hasProjectLink(project) {
+      return Boolean(this.projectLink(project))
+    },
     projectLink(project) {
       const type = project?.types?.find(type => {
         return type?.projectoverview?.uid
       })
 
-      if (!!type) {
-        return `/${type.projectoverview.uid}/${project.uid}`
-      } else {
-        console.error('todo: remove')
-        return false
-      }
+      return `/${type?.projectoverview?.uid}/${project?.uid}`
     }
   },
   filters: {
