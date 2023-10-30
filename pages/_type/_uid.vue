@@ -2,7 +2,7 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        <Gallery :project="project" />
+        <Carousel :project="project" />
         <prismic-rich-text class="introduction" :field="project.title" />
       </div>
       <div class="main_content">
@@ -13,12 +13,14 @@
 </template>
 
 <script>
+import Carousel from '~/components/Carousel'
 import SliceRenderer from '~/components/SliceRenderer'
 
 export default {
   layout: 'default',
   components: {
-    SliceRenderer
+    SliceRenderer,
+    Carousel
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
