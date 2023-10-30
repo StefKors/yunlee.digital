@@ -45,9 +45,9 @@ export default {
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
       return {
-        title: payload.data.title,
-        description: payload.data.long_bio,
-        events: about.data.events.map(event => {
+        title: payload?.title,
+        description: payload?.long_bio,
+        events: payload?.events?.map(event => {
           const year = new Date(event.date).getFullYear()
           event.year = year
           return event
@@ -58,9 +58,9 @@ export default {
       const about = await $prismic.api.getSingle('about')
 
       return {
-        title: about.data.title,
-        description: about.data.long_bio,
-        events: about.data.events.map(event => {
+        title: about.data?.title,
+        description: about.data?.long_bio,
+        events: about.data?.events.map(event => {
           const year = new Date(event.date).getFullYear()
           event.year = year
           return event

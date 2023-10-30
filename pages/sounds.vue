@@ -7,7 +7,7 @@
           <prismic-rich-text v-if="description" :field="description" />
         </div>
         <br />
-        <SliceRenderer :slices="slices" />
+        <SliceRenderer v-if="slices?.length > 0" :slices="slices" />
       </div>
     </div>
   </article>
@@ -24,9 +24,9 @@ export default {
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
       return {
-        title: payload.data.title,
-        description: payload.data.description,
-        slices: payload.data.body
+        title: payload?.title,
+        description: payload?.description,
+        slices: payload?.body
       }
     }
     try {

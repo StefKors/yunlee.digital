@@ -2,11 +2,15 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        <Carousel :project="project" />
-        <prismic-rich-text class="introduction" :field="project.title" />
+        <Carousel v-if="project?.length > 0" :project="project" />
+        <prismic-rich-text
+          v-if="project?.title"
+          class="introduction"
+          :field="project?.title"
+        />
       </div>
       <div class="main_content">
-        <SliceRenderer :slices="slices" />
+        <SliceRenderer v-if="slices?.length > 0" :slices="slices" />
       </div>
     </div>
   </article>
@@ -25,13 +29,13 @@ export default {
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
       return {
-        project: payload.data,
-        slices: project.data?.body
+        project: payload,
+        slices: payload?.body
       }
     }
     try {
       const project = await $prismic.api.getByUID('projects', params.uid)
-      console.log(project.data.body)
+
       return {
         project: project.data,
         slices: project.data?.body

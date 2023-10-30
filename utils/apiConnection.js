@@ -96,14 +96,17 @@ const fetchProjectRoutes = async () => {
   )
 
   // Map project pages to project routes
-  return projects.results
+  // console.log(projects.results)
+
+  const result = projects.results
     .map(project => {
       const types = project.data.types
         .map(type => {
           const typeUID = type?.projectoverview?.uid
-          if (typeUID) {
+          const routeUID = project?.uid
+          if (typeUID && routeUID) {
             return {
-              route: '/' + typeUID + '/' + project.uid,
+              route: '/' + typeUID + '/' + routeUID,
               payload: project
             }
           }
@@ -113,6 +116,8 @@ const fetchProjectRoutes = async () => {
       return types
     })
     .flat(1)
+
+  return result
 }
 
 export const fetchAllRoutePaths = async () => {
@@ -122,6 +127,7 @@ export const fetchAllRoutePaths = async () => {
   // Fetch project routes
   const projectRoutes = await fetchProjectRoutes()
 
+  // console.log('projectRoutes', projectRoutes[0])
   // Fetch overview routes
   const overviewRoutes = await fetchOverviewRoutes(projectRoutes)
 
