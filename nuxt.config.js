@@ -25,6 +25,16 @@ const apiOptions = {
         // of a content relationship field in the page type
         type: 'type'
       }
+    },
+    {
+      type: 'Sounds',
+      uid: 'Sounds',
+      path: '/sounds'
+    },
+    {
+      type: 'About',
+      uid: 'about',
+      path: '/about'
     }
   ]
 }
@@ -40,14 +50,16 @@ export default {
       //   payload: user
       // }]
 
-      fetchAllRoutePaths().then((routes) => {
-        // console.info(routes)
+      fetchAllRoutePaths()
+        .then(routes => {
+          // console.info(routes)
 
-        callback(null, routes)
-      }).catch((error) => {
-        console.log(error)
-        callback(null, [])
-      })
+          callback(null, routes)
+        })
+        .catch(error => {
+          console.log(error)
+          callback(null, [])
+        })
     }
   },
   /*
@@ -77,6 +89,13 @@ export default {
         type: 'image/x-icon',
         href: 'favicon.ico'
       }
+    ],
+    script: [
+      {
+        src: 'https://static.cdn.prismic.io/prismic.js?new=true&repo=yuneel',
+        async: true,
+        defer: true
+      }
     ]
   },
   components: true,
@@ -92,11 +111,10 @@ export default {
    ** Plugins to load before mounting the App
    */
   ...routerBase,
-  plugins: [
-    { src: '@/plugins/vue-dragscroll.js', mode: 'client' }
-  ],
+  plugins: [{ src: '@/plugins/vue-dragscroll.js', mode: 'client' }],
 
   prismic: {
+    preview: '/preview',
     endpoint: 'https://yuneel.cdn.prismic.io/api/v2',
     apiOptions
   },

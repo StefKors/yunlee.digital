@@ -294,6 +294,10 @@ article {
   }
 }
 
+.main_content {
+  max-width: 1200px;
+}
+
 .media {
   max-width: 150%;
   position: relative;

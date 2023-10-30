@@ -75,7 +75,6 @@ const fetchOverviewRoutes = async projectRoutes => {
         return projroute.payload
       })
 
-    // console.log(overview)
     return {
       route: '/' + overview.uid,
       payload: {

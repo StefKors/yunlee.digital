@@ -110,12 +110,6 @@ export default {
             }) ?? []
 
           const selectedFilter = this.overviews[this.filter]?.uid
-          console.log(
-            'selectedFilter',
-            selectedFilter,
-            'typesOnProject',
-            typesOnProject
-          )
           if (typesOnProject.includes(selectedFilter)) {
             return true
           } else {

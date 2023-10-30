@@ -87,8 +87,6 @@ export default {
         }
       })
 
-      console.log('formattedProjects', formattedProjects)
-
       return {
         title: overview?.data?.title,
         description: overview?.data?.description,

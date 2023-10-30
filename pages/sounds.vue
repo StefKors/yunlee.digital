@@ -7,43 +7,19 @@
           <prismic-rich-text v-if="description" :field="description" />
         </div>
         <br />
-
-        <div class="slices">
-          <div
-            class="slide_wrapper"
-            v-for="(slice, i) in slices"
-            :key="slice.id"
-          >
-            <div class="slice rich_text" v-if="slice.slice_type == 'rich_text'">
-              <prismic-rich-text :field="slice?.primary?.rich_content" />
-            </div>
-
-            <div
-              class="slice youtube_embed"
-              v-if="slice.slice_type == 'youtube_embed'"
-            >
-              <div
-                class="html_content"
-                :data-provider="
-                  slice.primary.embed_field.provider_name.toLowerCase()
-                "
-                v-html="slice?.primary?.embed_field?.html"
-              ></div>
-            </div>
-          </div>
-        </div>
+        <SliceRenderer :slices="slices" />
       </div>
     </div>
   </article>
 </template>
 
 <script>
-import Gallery from '~/components/Gallery'
+import SliceRenderer from '../components/SliceRenderer.vue'
 
 export default {
   layout: 'default',
   components: {
-    Gallery
+    SliceRenderer
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
@@ -69,34 +45,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .sounds-page {
   max-width: 1200px;
-}
-
-.slice.rich_text {
-  text-transform: none;
-  margin: 1rem auto;
-}
-
-/* Youtube hack to make it responsive */
-div[data-provider^='youtube'] iframe {
-  width: 100%;
-}
-div[data-provider^='youtube'] {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-}
-div[data-provider^='youtube'] iframe,
-div[data-provider^='youtube'] object,
-div[data-provider^='youtube'] embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 </style>

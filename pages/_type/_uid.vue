@@ -4,32 +4,35 @@
       <div class="article-header">
         <Gallery :project="project" />
         <prismic-rich-text class="introduction" :field="project.title" />
-        <!-- <DateFormatter :data="article" /> -->
+      </div>
+      <div class="main_content">
+        <SliceRenderer :slices="slices" />
       </div>
     </div>
   </article>
 </template>
 
 <script>
-import Gallery from '~/components/Gallery'
+import SliceRenderer from '~/components/SliceRenderer'
 
 export default {
   layout: 'default',
   components: {
-    Gallery
+    SliceRenderer
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
       return {
-        project: payload.data
+        project: payload.data,
+        slices: project.data?.body
       }
     }
     try {
-      const project = await $prismic.api.getByUID("projects", params.uid)
-      console.log(project.data)
+      const project = await $prismic.api.getByUID('projects', params.uid)
       console.log(project.data.body)
       return {
-        project: project.data
+        project: project.data,
+        slices: project.data?.body
       }
     } catch (e) {
       // Returns error page
