@@ -1,12 +1,67 @@
 import Mode from 'frontmatter-markdown-loader/mode'
+import { fetchAllRoutePaths } from './utils/apiConnection'
 const routerBase = {
   router: {
     base: '/'
   }
 }
 
+const apiOptions = {
+  routes: [
+    {
+      type: 'projects',
+      path: '/:type/:uid',
+      resolvers: {
+        // A list of "path variables" mapped to the API ID
+        // of a content relationship field in the page type
+        type: 'type'
+      }
+    },
+    {
+      type: 'overview',
+      path: '/:type',
+      resolvers: {
+        // A list of "path variables" mapped to the API ID
+        // of a content relationship field in the page type
+        type: 'type'
+      }
+    },
+    {
+      type: 'Sounds',
+      uid: 'Sounds',
+      path: '/sounds'
+    },
+    {
+      type: 'About',
+      uid: 'about',
+      path: '/about'
+    }
+  ]
+}
+
 export default {
-  mode: 'spa',
+  target: 'static',
+  ssr: true,
+  generate: {
+    routes(callback) {
+      // let user = { title: 'string' }
+      // return [{
+      //   route: '/performances',
+      //   payload: user
+      // }]
+
+      fetchAllRoutePaths()
+        .then(routes => {
+          // console.info(routes)
+
+          callback(null, routes)
+        })
+        .catch(error => {
+          console.log(error)
+          callback(null, [])
+        })
+    }
+  },
   /*
    ** Headers of the page
    */
@@ -22,16 +77,28 @@ export default {
         content:
           'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.'
       },
-        { hid: 'og:image', property: 'og:image', content: 'https://www.yunlee.digital/social.jpg'}
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://www.yunlee.digital/social.jpg'
+      }
     ],
     link: [
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: 'favicon.ico',
-      },
+        href: 'favicon.ico'
+      }
     ],
+    script: [
+      {
+        src: 'https://static.cdn.prismic.io/prismic.js?new=true&repo=yuneel',
+        async: true,
+        defer: true
+      }
+    ]
   },
+  components: true,
   /*
    ** Customize the progress-bar color
    */
@@ -44,10 +111,12 @@ export default {
    ** Plugins to load before mounting the App
    */
   ...routerBase,
-  plugins: [],
+  plugins: [{ src: '@/plugins/vue-dragscroll.js', mode: 'client' }],
 
   prismic: {
-    endpoint: 'https://yuneel.cdn.prismic.io/api/v2'
+    preview: '/preview',
+    endpoint: 'https://yuneel.cdn.prismic.io/api/v2',
+    apiOptions
   },
   /*
    ** Nuxt.js dev-modules
@@ -63,14 +132,18 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/prismic',
-    ['nuxt-social-meta', {
-      url: 'https://www.yunlee.digital',
-      title: 'Yun Ingrid Lee',
-      description: 'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.',
-      img: 'https://www.yunlee.digital/social.jpg',
-      locale: 'en_EN',
-      themeColor: '#f29a9d'
-    }]
+    [
+      'nuxt-social-meta',
+      {
+        url: 'https://www.yunlee.digital',
+        title: 'Yun Ingrid Lee',
+        description:
+          'Yun Ingrid Lee is an artist, composer, and performer interested in invisibility, noise, and collective sensing.',
+        img: 'https://www.yunlee.digital/social.jpg',
+        locale: 'en_EN',
+        themeColor: '#f29a9d'
+      }
+    ]
   ],
   /*
    ** Axios module configuration

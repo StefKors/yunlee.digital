@@ -1,0 +1,18 @@
+{
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "[javascript]": {
+    "editor.defaultFormatter": null
+  },
+  "eslint.lintTask.enable": false,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "markdown"
+  ],
+  "js/ts.implicitProjectConfig.checkJs": false,
+  "tslint.jsEnable": false
+}
