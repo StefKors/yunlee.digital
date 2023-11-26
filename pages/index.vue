@@ -50,13 +50,13 @@ export default {
         return project.link_to_projects.data
       })
 
-      console.log('overviews count:', payload.overviews.length)
+      console.log('overviews count:', payload.overview.length)
 
       // Returns data to be used in template
       return {
         home,
         projects: projects,
-        overviews: payload.overviews,
+        overviews: payload.overview,
         documentId: payload.id
       }
     }
