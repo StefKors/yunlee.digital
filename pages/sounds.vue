@@ -23,14 +23,16 @@ export default {
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
+      console.log('sounds', payload)
       return {
-        title: payload?.title,
-        description: payload?.description,
-        slices: payload?.body
+        title: payload?.document?.title,
+        description: payload?.document?.description,
+        slices: payload?.document?.body
       }
     }
     try {
       const sounds = await $prismic.api.getSingle('sounds')
+      console.log('sounds', sounds)
       return {
         title: sounds.data.title,
         description: sounds.data.description,
