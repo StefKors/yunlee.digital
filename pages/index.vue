@@ -64,6 +64,7 @@ export default {
     try {
       // Query to get API object
       // Query to get blog home content with LinkedContent
+      // ALSO UPDATE API CONNECTION!
       const document = await $prismic.api.getSingle('homepage-test-', {
         fetchLinks: [
           'projects.title',

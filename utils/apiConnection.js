@@ -29,6 +29,7 @@ const fetchSoundsRoute = async () => {
 const fetchHomePageRoute = async () => {
   // Create Client
   const client = Prismic.client('https://yuneel.cdn.prismic.io/api/v2')
+  // ALSO UPDATE PAGE!
   const document = await client.getSingle('homepage-test-', {
     fetchLinks: [
       'projects.title',
