@@ -2,7 +2,7 @@
   <article>
     <div class="article-wrapper">
       <div class="article-header">
-        <Carousel v-if="project?.length > 0" :project="project" />
+        <Carousel :project="project" />
         <prismic-rich-text
           v-if="project?.title"
           class="introduction"

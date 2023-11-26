@@ -111,7 +111,10 @@ export default {
    ** Plugins to load before mounting the App
    */
   ...routerBase,
-  plugins: [{ src: '@/plugins/vue-dragscroll.js', mode: 'client' }],
+  plugins: [
+    { src: '@/plugins/vue-dragscroll.js', mode: 'client' },
+    '~/plugins/vue-agile'
+  ],
 
   prismic: {
     preview: '/preview',
@@ -173,6 +176,7 @@ export default {
         }
       ),
         (config.resolve.alias['vue'] = 'vue/dist/vue.common')
-    }
+    },
+    transpile: ['vue-agile']
   }
 }

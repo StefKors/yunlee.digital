@@ -1,63 +1,43 @@
 <template>
   <div v-if="project.gallery" class="carousel">
-    <div
-      class="button previous"
-      v-on:click="previous"
-      :class="position == 0 ? 'disabled' : ''"
-    >
-      <img src="/ChevronLeft.svg" />
-    </div>
-    <div
-      v-for="(item, i) in project.gallery"
-      :key="i"
-      v-if="i == position"
-      class="image_wrapper"
-    >
-      <a :href="item.image.url" target="_blank">
-        <img
-          class="image"
-          v-if="item.image.url"
-          :src="`${item.image.url},w=600&h=600`"
-          :alt="item.image.alt"
-        />
-      </a>
-    </div>
-    <div
-      class="button next"
-      v-on:click="next"
-      :class="position == project.gallery.length - 1 ? 'disabled' : ''"
-    >
-      <img src="/ChevronRight.svg" />
-    </div>
+    <agile :autoplay="false">
+      <template slot="prevButton">
+        <div class="button previous">
+          <img src="/ChevronLeft.svg" />
+        </div>
+      </template>
+      <div
+        v-for="(item, i) in project.gallery"
+        :key="i"
+        class="image_wrapper slide"
+      >
+        <a :href="item.image.url" target="_blank">
+          <img
+            class="image"
+            v-if="item.image.url"
+            :src="`${item.image.url},w=600&h=600`"
+            :alt="item.image.alt"
+          />
+        </a>
+      </div>
+
+      <template slot="nextButton">
+        <div class="button next">
+          <img src="/ChevronRight.svg" />
+        </div>
+      </template>
+    </agile>
   </div>
 </template>
 <script>
+import { VueAgile } from 'vue-agile'
+
 export default {
+  components: {
+    agile: VueAgile
+  },
   props: {
     project: {}
-  },
-  data() {
-    return {
-      position: 0
-    }
-  },
-  methods: {
-    next() {
-      // don't go past end
-      if (this.position >= this.project?.gallery?.length - 1) {
-        return
-      }
-
-      this.position = this.position + 1
-    },
-    previous() {
-      // don't go past 0
-      if (this.position <= 0) {
-        return
-      }
-
-      this.position = this.position - 1
-    }
   }
 }
 </script>
@@ -70,14 +50,14 @@ $transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 400ms;
 .carousel {
   // align-items: center;
   // justify-content: center;
-  position: relative;
+  /* position: relative;
   display: flex;
   align-items: stretch;
   flex-direction: row;
   transition: $transition;
-  overflow-x: scroll;
-  cursor: grab;
+  overflow-x: scroll; */
   padding-top: 1rem;
+  max-width: 1200px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -86,10 +66,6 @@ $transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 400ms;
   .image {
     max-height: 650px;
     transition: $transition;
-  }
-
-  div + div {
-    padding: 0 0.2rem;
   }
 
   .button {
@@ -119,8 +95,14 @@ $transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 400ms;
       color: $pink;
     }
   }
-  .image_wrapper {
-    position: relative;
-  }
+}
+
+.agile--ssr .agile__slides > * {
+  overflow: hidden;
+  width: 0;
+}
+
+.agile--ssr .agile__slides > *:first-child {
+  width: 100%;
 }
 </style>

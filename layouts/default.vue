@@ -84,6 +84,18 @@ a {
   text-decoration: none;
 }
 
+button,
+input[type='submit'],
+input[type='reset'] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 article {
   padding: 2rem;
 
