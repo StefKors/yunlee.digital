@@ -244,18 +244,13 @@ article {
           }
 
           img {
-            opacity: 0.5;
+            opacity: 1;
             min-width: 250px;
             width: 36vw;
             max-width: 550px;
             max-height: 550px;
             transition: $transition;
             border-radius: 8px;
-
-            &:hover {
-              opacity: 1;
-              transition: $transition;
-            }
           }
 
           div + div {
