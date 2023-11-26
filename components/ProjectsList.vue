@@ -102,7 +102,9 @@ export default {
         return type?.projectoverview?.uid
       })
 
-      console.log(project)
+      if (project?.uid == undefined) {
+        console.log(project)
+      }
 
       return `/${type?.projectoverview?.uid}/${project?.uid}`
     }

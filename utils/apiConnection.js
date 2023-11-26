@@ -33,6 +33,7 @@ const fetchHomePageRoute = async () => {
     fetchLinks: [
       'projects.title',
       'projects.type',
+      'projects.uid',
       'projects.types',
       'projects.description',
       'projects.start_date',
