@@ -9,7 +9,10 @@
         class="item"
         :id="'key' + i"
       >
-        <NuxtLink v-if="project?.gallery?.[0].image" :to="projectLink(project)">
+        <NuxtLink
+          v-if="imageURLMods(project?.gallery?.[0].image)"
+          :to="projectLink(project)"
+        >
           <div class="single-media">
             <PrismicImage :field="imageURLMods(project?.gallery?.[0].image)" />
           </div>
@@ -68,17 +71,21 @@ export default {
       return Boolean(types?.[0]?.projectoverview?.uid)
     },
     imageURLMods(imageObj) {
-      let url = new URL(imageObj.url)
-      url.searchParams.delete('w')
-      url.searchParams.delete('h')
-      url.searchParams.set('w', 550 * 2) // retina
-      url.searchParams.set('h', 550 * 2) // retina
-      url.searchParams.set('fit', 'max')
-      url.searchParams.set('fill', 'solid')
-      url.searchParams.set('fill-color', '151515')
-      // https://images.prismic.io/yuneel/...ympics007.JPG?auto=compress,format&rect=774,0,3097,3097&w=1200&h=1200&clip=fit&max-w=450&max-h=450
-      imageObj.url = url.toString()
-      return imageObj
+      if (!!imageObj.url) {
+        let url = new URL(imageObj.url)
+        url.searchParams.delete('w')
+        url.searchParams.delete('h')
+        url.searchParams.set('w', 550 * 2) // retina
+        url.searchParams.set('h', 550 * 2) // retina
+        url.searchParams.set('fit', 'max')
+        url.searchParams.set('fill', 'solid')
+        url.searchParams.set('fill-color', '151515')
+        // https://images.prismic.io/yuneel/...ympics007.JPG?auto=compress,format&rect=774,0,3097,3097&w=1200&h=1200&clip=fit&max-w=450&max-h=450
+        imageObj.url = url.toString()
+        return imageObj
+      } else {
+        return false
+      }
     },
     capital(word) {
       const firstWord = word?.charAt(0)?.toUpperCase()

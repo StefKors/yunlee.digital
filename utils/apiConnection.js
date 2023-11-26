@@ -68,7 +68,7 @@ const fetchOverviewRoutes = async projectRoutes => {
     { pageSize: 100 }
   )
   // Map overview pages to routes
-  return overview.results.map(overview => {
+  let result = overview.results.map(overview => {
     const projects = projectRoutes
       .filter(proj => {
         return proj.route.startsWith('/' + overview.uid)
@@ -85,6 +85,8 @@ const fetchOverviewRoutes = async projectRoutes => {
       }
     }
   })
+  console.log('results: ', result)
+  return result
 }
 
 const fetchProjectRoutes = async () => {

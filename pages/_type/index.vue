@@ -8,7 +8,7 @@
         </div>
         <br />
 
-        <ProjectsList v-if="projects" :projects="projects" />
+        <ProjectsList v-if="projects?.length" :projects="projects" />
       </div>
     </div>
   </article>
