@@ -102,6 +102,8 @@ export default {
         return type?.projectoverview?.uid
       })
 
+      console.log(project)
+
       return `/${type?.projectoverview?.uid}/${project?.uid}`
     }
   },
