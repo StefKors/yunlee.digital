@@ -47,6 +47,8 @@ const fetchHomePageRoute = async () => {
     { pageSize: 100 }
   )
 
+  console.log('APICONNECTION: overview count:', overview.results.length)
+
   return {
     route: '/',
     payload: {

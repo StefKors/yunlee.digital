@@ -50,6 +50,8 @@ export default {
         return project.link_to_projects.data
       })
 
+      console.log('overviews count:', payload.overviews.length)
+
       // Returns data to be used in template
       return {
         home,
@@ -86,6 +88,7 @@ export default {
         { pageSize: 100 }
       )
 
+      console.log('overviews count:', overview.results.length)
       // Returns data to be used in template
       return {
         home,
