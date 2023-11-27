@@ -28,9 +28,10 @@ export default {
   },
   async asyncData({ $prismic, error, params, payload }) {
     if (payload) {
+      console.log(payload)
       return {
-        project: payload,
-        slices: payload?.body
+        project: payload.data,
+        slices: payload.data?.body
       }
     }
     try {

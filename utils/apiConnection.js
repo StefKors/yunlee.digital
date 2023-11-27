@@ -122,7 +122,6 @@ const fetchProjectRoutes = async () => {
       return types
     })
     .flat(1)
-
   return result
 }
 
