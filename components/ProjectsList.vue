@@ -10,11 +10,11 @@
         :id="'key' + i"
       >
         <NuxtLink
-          v-if="imageURLMods(project?.gallery?.[0].image)"
+          v-if="imageURLMods(project?.gallery?.[0]?.image)"
           :to="projectLink(project)"
         >
           <div class="single-media">
-            <PrismicImage :field="imageURLMods(project?.gallery?.[0].image)" />
+            <PrismicImage :field="imageURLMods(project?.gallery?.[0]?.image)" />
           </div>
         </NuxtLink>
         <div>
@@ -71,7 +71,7 @@ export default {
       return Boolean(types?.[0]?.projectoverview?.uid)
     },
     imageURLMods(imageObj) {
-      if (!!imageObj.url) {
+      if (!!imageObj?.url) {
         let url = new URL(imageObj.url)
         url.searchParams.delete('w')
         url.searchParams.delete('h')
