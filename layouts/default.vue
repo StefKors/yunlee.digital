@@ -84,6 +84,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  object-fit: contain;
+}
+
 button,
 input[type='submit'],
 input[type='reset'] {

@@ -13,6 +13,6 @@ export default {
 <style scoped>
 .slice.full_width_image img {
   width: 100%;
-  max-height: 90svh;
+  max-height: 80svh;
 }
 </style>
