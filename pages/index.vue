@@ -2,7 +2,7 @@
   <article id="top">
     <!-- INTRODUCTION -->
     <div class="introduction">
-      <prismic-rich-text :field="home.bio" />
+      <prismic-rich-text :field="home?.bio" />
     </div>
     <hr />
     <div class="filters">
@@ -20,7 +20,7 @@
         v-on:click="onFilterClick(i)"
         v-bind:class="{ active: filter === i }"
       >
-        <prismic-rich-text :field="overview.data.title" />
+        <prismic-rich-text :field="overview?.data?.title" />
       </div>
       <NuxtLink class="filter" to="/sounds">
         <h1>sounds</h1>

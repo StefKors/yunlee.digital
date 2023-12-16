@@ -25,13 +25,13 @@
                 {{ $prismic.asText(project.title) }}
               </NuxtLink>
             </span>
-            <span v-else>{{ $prismic.asText(project.title) }}</span>
+            <span v-else>{{ $prismic.asText(project?.title) }}</span>
             <span class="date">
-              <span v-if="project.start_date">
-                {{ project.start_date | onlyYear }}
+              <span v-if="project?.start_date">
+                {{ project?.start_date | onlyYear }}
               </span>
-              <span v-if="project.end_date">
-                - {{ project.end_date | onlyYear }}
+              <span v-if="project?.end_date">
+                - {{ project?.end_date | onlyYear }}
               </span>
             </span>
           </div>
