@@ -46,4 +46,25 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+/* vimeo hack to make it responsive */
+.html_content[data-provider^='vimeo'] iframe {
+  width: 100%;
+}
+.html_content[data-provider^='vimeo'] {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.html_content[data-provider^='vimeo'] iframe,
+.html_content[data-provider^='vimeo'] object,
+.html_content[data-provider^='vimeo'] embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>
