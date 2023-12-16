@@ -8,6 +8,7 @@
         v-bind:project="project"
         class="item"
         :id="'key' + i"
+        v-if="project"
       >
         <NuxtLink
           v-if="imageURLMods(project?.gallery?.[0]?.image)"
@@ -38,17 +39,17 @@
           <p>
             <span
               class="type"
-              v-if="hasTypes(project.types)"
-              v-for="(type, i) in project.types"
+              v-if="hasTypes(project?.types)"
+              v-for="(type, i) in project?.types"
             >
               <NuxtLink :to="type?.projectoverview?.uid">{{
                 capital(type?.projectoverview?.uid)
               }}</NuxtLink
-              ><span v-if="i < project.types.length - 1">, </span>
+              ><span v-if="i < project?.types.length - 1">, </span>
             </span>
           </p>
-          <div v-if="project.description" class="description">
-            <prismic-rich-text :field="project.description" />
+          <div v-if="project?.description" class="description">
+            <prismic-rich-text :field="project?.description" />
           </div>
         </div>
 

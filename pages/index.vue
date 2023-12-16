@@ -45,19 +45,17 @@ export default {
   },
   async asyncData({ $prismic, error, payload }) {
     if (payload) {
-      const home = payload.document
-      const projects = home.projects.map(project => {
-        return project.link_to_projects.data
+      const home = payload?.document
+      const projects = home?.projects.map(project => {
+        return project?.link_to_projects?.data
       })
-
-      console.log('overviews count:', payload.overview.length)
 
       // Returns data to be used in template
       return {
         home,
         projects: projects,
-        overviews: payload.overview,
-        documentId: payload.id
+        overviews: payload?.overview,
+        documentId: payload?.id
       }
     }
 
@@ -80,7 +78,7 @@ export default {
 
       const home = document.data
       const projects = document.data.projects.map(project => {
-        return project.link_to_projects.data
+        return project?.link_to_projects.data
       })
 
       // Query for all overview pages
@@ -89,13 +87,12 @@ export default {
         { pageSize: 100 }
       )
 
-      console.log('overviews count:', overview.results.length)
       // Returns data to be used in template
       return {
         home,
         projects: projects,
-        overviews: overview.results,
-        documentId: document.id
+        overviews: overview?.results,
+        documentId: document?.id
       }
     } catch (e) {
       // Returns error page
