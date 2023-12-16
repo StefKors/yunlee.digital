@@ -375,19 +375,34 @@ article {
     gap: 1rem;
   }
 
+
+  @media screen and (max-width: 880px) {
+    .events {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media screen and (max-width: 580px) {
+    .events {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .event_type {
     background-color: #262626;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.8rem;
     border-radius: 1rem;
     transition: ease 200ms;
     user-select: none;
     color: $blue;
     display: inline-block;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
 
   .event_title {
     color: $blue;
+    font-size: 0.9rem;
+    line-height: 1.2;
 
     // border: 1px solid;
     // border-radius: 0.2rem;

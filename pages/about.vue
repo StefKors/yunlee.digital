@@ -15,7 +15,6 @@
 
           <div class="events">
             <div
-              :event="event"
               :key="event.id"
               v-for="event in sortByYear[date]"
             >
