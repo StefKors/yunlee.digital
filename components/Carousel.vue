@@ -66,6 +66,13 @@ $transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 400ms;
   .image {
     max-height: 650px;
     transition: $transition;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 480px) {
+    .image {
+      max-height: 300px;
+    }
   }
 
   .button {
