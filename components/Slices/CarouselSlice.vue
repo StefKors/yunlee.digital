@@ -1,5 +1,5 @@
 <template>
-  <div v-if="project?.gallery" class="carousel">
+  <div v-if="slice?.items" class="carousel">
     <agile :autoplay="false">
       <template slot="prevButton">
         <div class="button previous">
@@ -7,11 +7,11 @@
         </div>
       </template>
       <div
-        v-for="(item, i) in project?.gallery"
+        v-for="(item, i) in slice?.items"
         :key="i"
         class="image_wrapper slide"
       >
-        <a :href="item?.image?.url" target="_blank">
+        <a :href="item?.image.url" target="_blank">
           <img
             class="image"
             v-if="item?.image?.url"
@@ -37,7 +37,7 @@ export default {
     agile: VueAgile
   },
   props: {
-    project: {}
+    slice: {}
   }
 }
 </script>

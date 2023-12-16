@@ -8,12 +8,17 @@
           v-if="slice.slice_type == 'full_width_image'"
           :slice="slice"
         />
+        <CarouselSlice
+          v-if="slice.slice_type == 'image_gallery'"
+          :slice="slice"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CarouselSlice from '../components/Slices/CarouselSlice.vue'
 import EmbedSlice from '../components/Slices/EmbedSlice.vue'
 import FullWidthImage from '../components/Slices/FullWidthImage.vue'
 import RichTextSlice from '../components/Slices/RichTextSlice.vue'
@@ -23,7 +28,8 @@ export default {
   components: {
     RichTextSlice,
     FullWidthImage,
-    EmbedSlice
+    EmbedSlice,
+    CarouselSlice
   }
 }
 </script>
